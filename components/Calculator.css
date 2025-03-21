@@ -1,0 +1,84 @@
+.calculator {
+  width: 320px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.calculator-display {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: right;
+  padding: 20px;
+  font-family: 'Digital', sans-serif;
+}
+
+.formula {
+  min-height: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.current-value {
+  font-size: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: #111;
+}
+
+button {
+  border: none;
+  background-color: #333;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+button:active {
+  background-color: #555;
+}
+
+.operator {
+  background-color: #f69906;
+}
+
+.operator:hover {
+  background-color: #f6a935;
+}
+
+.clear {
+  background-color: #a5a5a5;
+  color: black;
+}
+
+.clear:hover {
+  background-color: #c5c5c5;
+}
+
+.equals {
+  background-color: #f69906;
+}
+
+.equals:hover {
+  background-color: #f6a935;
+}
+
+.zero {
+  grid-column: span 2;
+} 
