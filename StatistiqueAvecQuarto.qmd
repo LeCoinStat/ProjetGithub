@@ -1,0 +1,192 @@
+---
+title: "MasterClassStatSecrets"
+format: 
+  html:
+    code-fold: true  # Permet de plier/déplier le code
+editor: visual
+author: StatSecrets
+date: "`r Sys.Date()`"
+---
+
+## 
+
+# Création de titres et astuces redactions
+
+Pour démarrer il faut installer: rmarkdown
+
+install.packages(""markdown")
+
+install.packages("rmarkdown")
+
+install.packages("quarto")
+
+![](Downloads/lecture%20(2).png){fig-align="center"}
+
+Dans ce document, nous allons réaliser une analyse statistique de la base de données \`mtcars\` en utilisant R et Quarto.
+
+# Chargement des bibliothèques
+
+```{r}
+#installatation des packages
+```
+
+```{r setup}
+#install.packages("tidyverse")
+#| warning: false
+#| echo: false
+#| results: false
+#| include: false
+
+
+## Chargement des bibliothèques
+
+# Paramètres globaux
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+# Suppression des messages de démarrage des packages
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(knitr)
+  library(ggcorrplot)
+})
+```
+
+```{r}
+head(mtcars)
+```
+
+```{r}
+#| warning: false
+#| echo: false
+kable(head(mtcars))
+```
+
+## Graphique en R
+
+```{r}
+# Chargement du package ggplot2
+#install.packages(ggplot2)
+library(ggplot2)
+
+# Création d'un graphique simple
+ggplot(data = mtcars, aes(x = mpg, y = hp)) +
+  geom_point() +
+  labs(title = "Relation entre MPG et HP", x = "Miles par gallon", y = "Chevaux")
+
+```
+
+## Graphique en Python
+
+```{r}
+#install.packages("png")
+#install.packages("reticulate")
+```
+
+```{r}
+reticulate::py_install("matplotlib")# dans une session 
+reticulate::py_install("seaborn")
+reticulate::py_install("pandas")
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Chargement des données
+data = sns.load_dataset('iris')
+
+# Création d'un graphique simple
+sns.scatterplot(data=data, x='sepal_length', y='sepal_width', hue='species')
+plt.title('Relation entre la longueur et la largeur des sépales')
+plt.xlabel('Longueur des sépales (cm)')
+plt.ylabel('Largeur des sépales (cm)')
+plt.show()
+```
+
+```{r}
+#install.packages("psych")
+#install.packages("flextable")
+```
+
+```{r}
+library(tidyverse)
+library(psych)
+library(flextable)
+```
+
+```{r}
+
+# Charger les données
+data(mtcars)
+
+# Faire les statistiques descriptives
+descriptive_stats <- psych::describe(mtcars)
+
+# Convertir les résultats en data.frame
+descriptive_stats_df <- as.data.frame(descriptive_stats)
+
+# Créer un flextable pour la mise en forme
+descriptive_stats_ft <- flextable(descriptive_stats_df)
+descriptive_stats_ft
+```
+
+Ajouter un titre sur vos tableaux
+
+```{r}
+#install.packages("kableextra")
+library(kableExtra)
+# Faire les statistiques descriptives
+descriptive_stats <- psych::describe(mtcars)
+
+# Convertir les résultats en data.frame
+descriptive_stats_df <- as.data.frame(descriptive_stats)
+
+descriptive_stats_df %>%
+  kbl(caption = "Statistique descriptives") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+```{r}
+descriptive_stats %>%
+  kbl() %>%
+  kable_classic_2(full_width = F)
+```
+
+```{r}
+library(flextable)
+
+# Création de données exemple
+data <- data.frame(
+  Nom = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 35),
+  Profession = c("Ingénieur", "Docteur", "Artiste")
+)
+
+# Création du tableau flextable
+ft <- flextable(data)
+ft
+```
+
+```{r}
+library(magrittr)  # Pour utiliser le pipe %>%
+
+#personalisation
+ft <- flextable(data) %>%
+  bg(i = 1, bg = "lightblue") %>%
+  color(i = 1, color = "red") %>%
+  bg(part = "header", bg = "gray") %>%
+  color(part = "header", color = "white")
+ft
+```
+
+```{r}
+mtcars[1:8, 1:8] %>%
+  kbl() %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = spec_color(mtcars$mpg[1:8]),
+              link = "https://haozhu233.github.io/kableExtra/") %>%
+  column_spec(6, color = "white",
+              background = spec_color(mtcars$drat[1:8], end = 0.7),
+              popover = paste("am:", mtcars$am[1:8]))
+```
